@@ -6,24 +6,26 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/hrojas2021/go-graphql-mongodb/database"
 	"github.com/hrojas2021/go-graphql-mongodb/graph/model"
 )
 
+var db = database.Connect()
+
 // CreateDog is the resolver for the createDog field.
 func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewDog) (*model.Dog, error) {
-	panic(fmt.Errorf("not implemented: CreateDog - createDog"))
+	return db.Save(input), nil
 }
 
 // Dog is the resolver for the dog field.
 func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
-	panic(fmt.Errorf("not implemented: Dog - dog"))
+	return db.FindByID(id), nil
 }
 
 // Dogs is the resolver for the dogs field.
 func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
-	panic(fmt.Errorf("not implemented: Dogs - dogs"))
+	return db.All(), nil
 }
 
 // Mutation returns MutationResolver implementation.

@@ -30,7 +30,7 @@ func Connect() *DB {
 	return &DB{client: client}
 }
 
-func (db *DB) Save(input *model.Dog) *model.Dog {
+func (db *DB) Save(input *model.NewDog) *model.Dog {
 	collection := db.client.Database("animals").Collection("dogs")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -38,6 +38,7 @@ func (db *DB) Save(input *model.Dog) *model.Dog {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	return &model.Dog{
 		ID:        res.InsertedID.(primitive.ObjectID).Hex(),
 		Name:      input.Name,
